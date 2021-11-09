@@ -54,13 +54,40 @@ private:
     };
 
 public:
-    void nScan()
+    void nScan(int x, int y)
     {
+        for (int i = 0; i < 6; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+
+            }
+        }
+    }
+    void qScan(int x, int y)
+    {
+        int west = -2;
+        int north = -3;
+        int east = -2;
+        int south = -1;
 
     }
-    void qScan()
-    {
 
+    void solve()
+    {
+        //pick random initial tile, need a tile between [1][1]/[6][6] that's not -50,100,or-1
+        int randx = rand() % 5;
+        int randy = rand() % 6;
+        int goodTiles[14][2] = { {1,1}, {1,2},
+            {1,3}, {1,4},
+            {2,3}, {2,4}, {2,6},
+            {3, 2}, {3,5},
+            {4, 1}, {4, 2}, {4,3}, {4,4},{4,5}
+        }; //all posible tiles
+     
+
+      
+        
     }
 
     void PrintProbabilities() {
@@ -84,8 +111,12 @@ public:
 int main()
 {
     Maze Ngrid;
+    
 
     Ngrid.PrintProbabilities();
+
+    
+
 
     system("pause");
     return 0;
