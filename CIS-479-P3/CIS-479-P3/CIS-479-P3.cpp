@@ -62,19 +62,19 @@ public:
     {
         if (trajectory[2] == 0)
         {
-            NmazeTiles[trajectory[0], trajectory[1]]->west += 1;
+            NmazeTiles[trajectory[0]][trajectory[1]].west += 1;
         }
         else if (trajectory[2] == 1)
         {
-            NmazeTiles[trajectory[0], trajectory[1]]->north += 1;
+            NmazeTiles[trajectory[0]][trajectory[1]].north += 1;
         }
         else if (trajectory[2] == 2)
         {
-            NmazeTiles[trajectory[0], trajectory[1]]->east += 1;
+            NmazeTiles[trajectory[0]][trajectory[1]].east += 1;
         }
         else if (trajectory[2] == 3)
         {
-            NmazeTiles[trajectory[0], trajectory[1]]->south += 1;
+            NmazeTiles[trajectory[0]][trajectory[1]].south += 1;
         }
         
     }
@@ -220,76 +220,110 @@ public:
 
     void PrintProbabilitiesN() {
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
-            std::cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[0][i].west;
+            cout <<left << std::setw(12) << NmazeTiles[0][i].west;
         }
-        for (int i = 0; i < 6; i++)
+        cout << endl;
+            for (int i = 0; i < 4; i++)
+            {
+                cout << "row " << i + 1 << ":" << endl;
+                    for (int k = 0; k < 7; k++)
+                    {
+                        if (NmazeTiles[i + 1][k].west == -1)
+                        {
+                            cout << left << std::setw(12) << "####";
+                        }
+                        else
+                        {
+                            cout << left << std::setw(12) << NmazeTiles[i + 1][k].west;
+                        }   
+                    }
+                    cout << endl;
+                    for (int k = 0; k < 7; k++)
+                    {
+                        if (NmazeTiles[i + 1][k].north == -1)
+                        {
+                            cout << left << std::setw(12) << "####";
+                        }
+                        else
+                        {
+                            cout << left << std::setw(12) << NmazeTiles[i + 1][k].north;
+                        }
+                    }
+                    cout << endl;
+                    for (int k = 0; k < 7; k++)
+                    {
+                        if (NmazeTiles[i + 1][k].east == -1)
+                        {
+                            cout << left << std::setw(12) << "####";
+                        }
+                        else
+                        {
+                            cout << left << std::setw(12) << NmazeTiles[i + 1][k].east;
+                        }
+                    }
+                    cout << endl;
+                    for (int k = 0; k < 7; k++)
+                    {
+                        if (NmazeTiles[i + 1][k].south == -1)
+                        {
+                            cout << left << std::setw(12) << "####";
+                        }
+                        else
+                        {
+                            cout << left << std::setw(12) << NmazeTiles[i + 1][k].south;
+                        }
+                    }
+                    cout << endl;
+                    cout << endl;
+            }
+            cout << endl;
+        for (int i = 0; i < 7; i++)
+        {
+            cout << left << std::setw(12) << NmazeTiles[5][i].west;
+        }
+
+        /*for (int i = 0; i < 7; i++)
+        {
+            cout <<left << std::setw(12) << NmazeTiles[0][i].west;
+        }
+        cout << endl;
+
+        for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 7; j++)
             {
-                for (int k = 0; k < 6; k++)
+                if (NmazeTiles[i + 1][j].west != -50 && NmazeTiles[i + 1][j].west != 100 && NmazeTiles[i + 1][j].west != -1)
                 {
-                    if (NmazeTiles[i][j].west != -50 || NmazeTiles[i][j].west != 100 || NmazeTiles[i][j].west != -1)
-                    {
-                        cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[i][j].north;
-                    }
-                    else
-                    {
-                        cout << std::setprecision(2) << std::fixed << std::setw(7) << " ";
-                    }
+                    cout << left << std::setw(12) << NmazeTiles[i+ 1][j].north;
                 }
-                cout << endl;
-                for (int k = 0; k < 6; k++)
+                else
                 {
-                    if (NmazeTiles[i][j].west != -50 || NmazeTiles[i][j].west != 100 || NmazeTiles[i][j].west != -1)
-                    {
-                        cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[i][j].west << std::setprecision(2) << std::fixed << std::setw(3) << NmazeTiles[i][j].east;
-                    }
-                    else if (NmazeTiles[i][j].west != -1)
-                    {
-                        std::cout << std::setw(7) << "####";
-                    }
-                    else
-                    {
-                        cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[i][j].west;
-                    }
+                    cout << left << std::setw(12) << "";
                 }
-                cout << endl;
-                for (int k = 0; k < 6; k++)
-                {
-                    if (NmazeTiles[i][j].west != -50 || NmazeTiles[i][j].west != 100 || NmazeTiles[i][j].west != -1)
-                    {
-                        cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[i][j].south;
-                    }
-                    else
-                    {
-                        cout << std::setprecision(2) << std::fixed << std::setw(7) << " ";
-                    }
-                }
-                cout << endl;
             }
-        }
-            
             cout << endl;
-
-            for (int i = 0; i < 7; i++)
+            for (int j = 0; j < 7; j++)
             {
-                std::cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[5][i].west;
-            }
-        /*for (int i = 0; i < 6; ++i) {
-            for (int j = 0; j < 7; ++j) {
-                if (NmazeTiles[i][j].west == -1) {
-                    std::cout << std::setw(5) << "####";
-                    std::cout << "   ";
+                if (NmazeTiles[i + 1][j].west != -50 && NmazeTiles[i + 1][j].west != 100 && NmazeTiles[i + 1][j].west != -1)
+                {
+                    cout  << std::setw(9) << NmazeTiles[i + 1][j].west << std::setw(3) << NmazeTiles[i + 1][j].east;
                 }
-                else {
-                    std::cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[i][j].west;
-                    std::cout << "   ";
+                else if (NmazeTiles[i + 1][j].west == -1)
+                {
+                    cout << std::setw(9) << "####";
+                }
+                else
+                {
+                    cout << std::setw(9) << NmazeTiles[i + 1][j].west;
                 }
             }
-            std::cout << '\n';
+            cout << endl;
+            
         }*/
+        
+       
     }
 };
 
@@ -300,7 +334,10 @@ int main()
     
 
     robotMaze.PrintProbabilitiesN();
-
+    cout << endl;
+    robotMaze.solve();
+    cout << endl;
+    robotMaze.PrintProbabilitiesN();
 
     /*for (int i = 0; i < 100; i++)
     {
