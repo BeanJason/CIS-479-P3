@@ -58,17 +58,27 @@ private:
     };
 
 public:
-    void nScan(int x, int y)
+    void nScan(vector<int> trajectory)
     {
-        for (int i = 0; i < 6; i++)
+        if (trajectory[2] == 0)
         {
-            for (int j = 0; j < 7; j++)
-            {
-
-            }
+            NmazeTiles[trajectory[0], trajectory[1]]->west += 1;
         }
+        else if (trajectory[2] == 1)
+        {
+            NmazeTiles[trajectory[0], trajectory[1]]->north += 1;
+        }
+        else if (trajectory[2] == 2)
+        {
+            NmazeTiles[trajectory[0], trajectory[1]]->east += 1;
+        }
+        else if (trajectory[2] == 3)
+        {
+            NmazeTiles[trajectory[0], trajectory[1]]->south += 1;
+        }
+        
     }
-    void qScan(int x, int y)
+    void qScan(int row, int col)
     {
         int west = -2;
         int north = -3;
@@ -77,15 +87,15 @@ public:
 
     }
 
-    vector<vector<int>> trajectory(int x, int y) //take the x and y of the start tile, return a vector with the trajectory
+    vector<vector<int>> trajectory(int Row, int col) //take the x and y of the start tile, return a vector with the trajectory
     {
         float random = rand() % 1;
         int direction;
         vector<vector<int>> path;
         vector<int> next;
 
-        int curTileX = x;
-        int curTileY = y;
+        int curTileCol = col;
+        int curTileRow = Row;
 
         bool end = false;
 
@@ -96,44 +106,39 @@ public:
             if (random < .9)//.9 chance we chose max direction for movement 
             {
                 //find max
-                direction = max(curTileX, curTileY);
-                next = { curTileX, curTileY, direction };
+                direction = max(curTileCol, curTileRow);
+                next = { curTileRow , curTileCol, direction };
                 path.push_back(next);
             }
             else //.1 chance we choose a random direction 
             {
                 direction = rand() % 3;
-                next = { curTileX, curTileY, direction };
+                next = { curTileRow , curTileCol, direction };
                 path.push_back(next);
             }
 
-            //move to the current tile in the direction chosen, unless it is a obstacle (if obstacle we bounce back so stay the same tile so don't change)
-            //
-            //
-            //
-            //Code for that here 
-
-            if (direction == 0)//if direction west
+           
+            if (direction == 0 && QmazeTiles[curTileRow][curTileCol - 1].west != -1)//if direction west
             {
-                curTileX += 1;
+                curTileCol -= 1;
             }
-            else if (direction == 1)//if direction north
+            else if (direction == 1 && QmazeTiles[curTileRow - 1][curTileCol].west != -1)//if direction north
             {
-                curTileY += 1;
+                curTileRow -= 1;
             }
-            else if (direction == 2)//if direction east
+            else if (direction == 2 && QmazeTiles[curTileRow][curTileCol + 1].west != -1)//if direction east
             {
-                curTileX -= 1;
+                curTileCol += 1;
             }
-            else if (direction == 3)//if direction south
+            else if (direction == 3 && QmazeTiles[curTileRow + 1][curTileCol].west != -1)//if direction south
             {
-                curTileY -= 1;
+                curTileRow += 1;
             }
             //check if the next tile is -50 / 100 in that case add it to the path and set end to true
-            if (QmazeTiles[curTileX][curTileY].west == -50 || QmazeTiles[curTileX][curTileY].west == 100)
+            if (QmazeTiles[curTileRow][curTileCol].west == -50 || QmazeTiles[curTileRow][curTileCol].west == 100)
             {
-                int reason = QmazeTiles[curTileX][curTileY].west;
-                next = { curTileX, curTileY, reason };//used -1 for direction bc it's not going to be moving anymore
+                int reason = QmazeTiles[curTileRow][curTileCol].west;
+                next = { curTileRow, curTileCol, reason };//used -1 for direction bc it's not going to be moving anymore
                 path.push_back(next);
                 end = true;
             }
@@ -145,28 +150,34 @@ public:
         
     }
 
-    int max(int x, int y)
+    int max(int row, int  col)
     {
-        int maxDir = QmazeTiles[x][y].west;//hold the value that's in this direction
+        //directinos key
+        //0 = west
+        //1 = north
+        //2 = east
+        //3 = south
+
+        int maxDir = QmazeTiles[row][col].west;//hold the value that's in this direction
         int direction = 0;//what will be returned indicating max direction
-        if (QmazeTiles[x][y].north > maxDir)//do this for all directions if value in this direction > prev replace
+        if (QmazeTiles[row][col].north > maxDir)//do this for all directions if value in this direction > prev replace
         {
-            maxDir = QmazeTiles[x][y].north;
-            direction = 1;
+            maxDir = QmazeTiles[row][col].north;
+            direction = 1; 
         }
-        if (QmazeTiles[x][y].east > maxDir)
+        if (QmazeTiles[row][col].east > maxDir) 
         {
-            maxDir = QmazeTiles[x][y].east;
+            maxDir = QmazeTiles[row][col].east;
             direction = 2;
         }
-        if (QmazeTiles[x][y].south > maxDir)
+        if (QmazeTiles[row][col].south > maxDir) 
         {
-            maxDir = QmazeTiles[x][y].south;
+            maxDir = QmazeTiles[row][col].south;
             direction = 3;
         }
 
         //if each direction is equal return a random direction
-        if (QmazeTiles[x][y].west == QmazeTiles[x][y].north && QmazeTiles[x][y].west == QmazeTiles[x][y].east && QmazeTiles[x][y].west == QmazeTiles[x][y].south)
+        if (QmazeTiles[row][col].west == QmazeTiles[row][col].north && QmazeTiles[row][col].west == QmazeTiles[row][col].east && QmazeTiles[row][col].west == QmazeTiles[row][col].south)
         {
             direction = rand() % 3;
         }
@@ -180,17 +191,16 @@ public:
         int random = rand() % 14;
         int goodTiles[14][2] = { {1,1}, {1,2},
             {1,3}, {1,4},
-            {2,3}, {2,4}, {2,6},
+            {2,2}, {2,4}, {2,6},
             {3, 2}, {3,5},
             {4, 1}, {4, 2}, {4,3}, {4,4},{4,5}
         }; //all posible tiles
      
-        int randX = goodTiles[random][1];
-        int randY = goodTiles[random][0];
+        int randCol = goodTiles[random][1];
+        int randRow = goodTiles[random][0];
 
-        cout << randX << randY << endl;
-
-        vector<vector<int>>path = trajectory(randX, randY);
+        cout << "start tile: " << randRow  << " " << randCol << endl;
+        vector<vector<int>>path = trajectory(randRow, randCol);
         
         for (int i = 0; i < path.size(); i++)
         {
@@ -200,10 +210,74 @@ public:
             }
             cout << endl;
         }
+        //now that we have our trajectory send each trajectory to N and then to q
+        for (int i = 0; i < path.size(); i++)
+        {
+            nScan(path[i]);
+        }
+
     }
 
-    void PrintProbabilities() {
-        for (int i = 0; i < 6; ++i) {
+    void PrintProbabilitiesN() {
+
+        for (int i = 0; i < 6; i++)
+        {
+            std::cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[0][i].west;
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                for (int k = 0; k < 6; k++)
+                {
+                    if (NmazeTiles[i][j].west != -50 || NmazeTiles[i][j].west != 100 || NmazeTiles[i][j].west != -1)
+                    {
+                        cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[i][j].north;
+                    }
+                    else
+                    {
+                        cout << std::setprecision(2) << std::fixed << std::setw(7) << " ";
+                    }
+                }
+                cout << endl;
+                for (int k = 0; k < 6; k++)
+                {
+                    if (NmazeTiles[i][j].west != -50 || NmazeTiles[i][j].west != 100 || NmazeTiles[i][j].west != -1)
+                    {
+                        cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[i][j].west << std::setprecision(2) << std::fixed << std::setw(3) << NmazeTiles[i][j].east;
+                    }
+                    else if (NmazeTiles[i][j].west != -1)
+                    {
+                        std::cout << std::setw(7) << "####";
+                    }
+                    else
+                    {
+                        cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[i][j].west;
+                    }
+                }
+                cout << endl;
+                for (int k = 0; k < 6; k++)
+                {
+                    if (NmazeTiles[i][j].west != -50 || NmazeTiles[i][j].west != 100 || NmazeTiles[i][j].west != -1)
+                    {
+                        cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[i][j].south;
+                    }
+                    else
+                    {
+                        cout << std::setprecision(2) << std::fixed << std::setw(7) << " ";
+                    }
+                }
+                cout << endl;
+            }
+        }
+            
+            cout << endl;
+
+            for (int i = 0; i < 7; i++)
+            {
+                std::cout << std::setprecision(2) << std::fixed << std::setw(7) << NmazeTiles[5][i].west;
+            }
+        /*for (int i = 0; i < 6; ++i) {
             for (int j = 0; j < 7; ++j) {
                 if (NmazeTiles[i][j].west == -1) {
                     std::cout << std::setw(5) << "####";
@@ -215,7 +289,7 @@ public:
                 }
             }
             std::cout << '\n';
-        }
+        }*/
     }
 };
 
@@ -225,11 +299,16 @@ int main()
     Maze robotMaze;
     
 
-    //robotMaze.PrintProbabilities();
+    robotMaze.PrintProbabilitiesN();
 
 
-
-    robotMaze.solve();
+    /*for (int i = 0; i < 100; i++)
+    {
+        cout << "pass " << i << endl;
+        robotMaze.solve();
+        cout << endl;
+    }*/
+    
     
     
     
