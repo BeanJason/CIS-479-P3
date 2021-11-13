@@ -78,13 +78,88 @@ public:
         }
         
     }
-    void qScan(int row, int col)
+    void qScan(vector<int> current, vector<int> next)
     {
         int west = -2;
         int north = -3;
         int east = -2;
         int south = -1;
 
+        float Q = 0;
+        float prevQ = 0;
+        float nextQ = 0;
+        int prevN = 0;
+        int direction = current[2];
+        int directionNext = next[2];
+        int wind = 0;
+
+        //find the previous N and previous Q value for calculation
+        if (direction == 0)
+        {
+            prevQ = QmazeTiles[current[0]][current[1]].west;
+            prevN = NmazeTiles[current[0]][current[1]].west;
+            wind = west;
+        }
+        else if (direction == 1)
+        {
+            prevQ = QmazeTiles[current[0]][current[1]].north;
+            prevN = NmazeTiles[current[0]][current[1]].north;
+            wind = north;
+        }
+        else if (direction == 2)
+        {
+            prevQ = QmazeTiles[current[0]][current[1]].east;
+            prevN = NmazeTiles[current[0]][current[1]].east;
+            wind = east;
+        }
+        else if (direction == 3)
+        {
+            prevQ = QmazeTiles[current[0]][current[1]].south;
+            prevN = NmazeTiles[current[0]][current[1]].south;
+            wind = south;
+        }
+        
+        //find the nest Q value for calculation
+        if (directionNext == 0)
+        {
+            nextQ = QmazeTiles[next[0]][next[1]].west;
+        }
+        else if (directionNext == 1)
+        {
+            nextQ = QmazeTiles[next[0]][next[1]].north;
+        }
+        else if (directionNext == 2)
+        {
+            nextQ = QmazeTiles[next[0]][next[1]].east;
+        }
+        else if (directionNext == 3)
+        {
+            nextQ = QmazeTiles[next[0]][next[1]].south;
+        }
+
+        //testing to see values
+        /*cout << "prevQ: " << prevQ << endl;
+        cout << "prevN: " << prevN << endl;
+        cout << "wind: " << wind << endl;*/
+             
+        Q = prevQ + (1 / prevN) * (wind + 1 * nextQ - prevQ);
+
+        if (direction == 0)
+        {
+            QmazeTiles[current[0]][current[1]].west = Q;
+        }
+        else if (direction == 1)
+        {
+            QmazeTiles[current[0]][current[1]].north = Q;
+        }
+        else if (direction == 2)
+        {
+            QmazeTiles[current[0]][current[1]].east = Q;
+        }
+        else if (direction == 3)
+        {
+            QmazeTiles[current[0]][current[1]].south = Q;
+        }
     }
 
     vector<vector<int>> trajectory(int Row, int col) //take the x and y of the start tile, return a vector with the trajectory
@@ -198,24 +273,37 @@ public:
      
         int randCol = goodTiles[random][1];
         int randRow = goodTiles[random][0];
+        vector<int> end;
 
         cout << "start tile: " << randRow  << " " << randCol << endl;
         vector<vector<int>>path = trajectory(randRow, randCol);
         
-        for (int i = 0; i < path.size(); i++)
+        for (int j = 0; j < path.size(); j++)
         {
-            for (int j = 0; j < path[i].size(); j++)
+            for (int k = 0; k < path[k].size(); k++)
             {
-                cout << path[i][j] << " ";
+                cout << path[j][k] << " ";
             }
             cout << endl;
         }
+        
         //now that we have our trajectory send each trajectory to N and then to q
-        for (int i = 0; i < path.size(); i++)
+        
+        for (int i = 0; i < path.size() -  1; i++)
         {
             nScan(path[i]);
-        }
 
+            //test to see current trajectory
+            /*for (int j = 0; j < 3; j++)
+            {
+                cout << path[i][j] << " ";
+            }*/
+            if (path[i][2] != -50 && path[i][2] != 100)
+            {
+                qScan(path[i], path[i + 1]);
+            }
+        }
+        path.clear();
     }
 
     void PrintProbabilitiesN() {
@@ -325,6 +413,73 @@ public:
         
        
     }
+
+    void PrintProbabilitiesQ()
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            cout << left << std::setw(12) << QmazeTiles[0][i].west;
+        }
+        cout << endl;
+        for (int i = 0; i < 4; i++)
+        {
+            cout << "row " << i + 1 << ":" << endl;
+            for (int k = 0; k < 7; k++)
+            {
+                if (QmazeTiles[i + 1][k].west == -1)
+                {
+                    cout << left << std::setw(12) << "####";
+                }
+                else
+                {
+                    cout << left << std::setw(12) << QmazeTiles[i + 1][k].west;
+                }
+            }
+            cout << endl;
+            for (int k = 0; k < 7; k++)
+            {
+                if (QmazeTiles[i + 1][k].north == -1)
+                {
+                    cout << left << std::setw(12) << "####";
+                }
+                else
+                {
+                    cout << left << std::setw(12) << QmazeTiles[i + 1][k].north;
+                }
+            }
+            cout << endl;
+            for (int k = 0; k < 7; k++)
+            {
+                if (QmazeTiles[i + 1][k].east == -1)
+                {
+                    cout << left << std::setw(12) << "####";
+                }
+                else
+                {
+                    cout << left << std::setw(12) << QmazeTiles[i + 1][k].east;
+                }
+            }
+            cout << endl;
+            for (int k = 0; k < 7; k++)
+            {
+                if (QmazeTiles[i + 1][k].south == -1)
+                {
+                    cout << left << std::setw(12) << "####";
+                }
+                else
+                {
+                    cout << left << std::setw(12) << QmazeTiles[i + 1][k].south;
+                }
+            }
+            cout << endl;
+            cout << endl;
+        }
+        cout << endl;
+        for (int i = 0; i < 7; i++)
+        {
+            cout << left << std::setw(12) << QmazeTiles[5][i].west;
+        }
+    }
 };
 
 //test
@@ -333,11 +488,21 @@ int main()
     Maze robotMaze;
     
 
-    robotMaze.PrintProbabilitiesN();
+    //robotMaze.PrintProbabilitiesN();
+    //robotMaze.PrintProbabilitiesQ();
     cout << endl;
     robotMaze.solve();
+    for (int i = 0; i < 10; i++)
+    {
+        
+    }
     cout << endl;
+    cout << "N maze: " << endl;
     robotMaze.PrintProbabilitiesN();
+    cout << endl;
+    cout << "Q maze: " << endl;
+    robotMaze.PrintProbabilitiesQ();
+    cout << endl;
 
     /*for (int i = 0; i < 100; i++)
     {
@@ -356,13 +521,3 @@ int main()
     return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
