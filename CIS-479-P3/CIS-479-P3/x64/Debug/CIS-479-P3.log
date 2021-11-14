@@ -1,13 +1,15 @@
 ﻿  CIS-479-P3.cpp
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(100,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(106,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(112,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(118,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(167,22): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(180,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(215,28): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(236,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(240,42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(245,42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(250,42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(105,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(111,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(117,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(123,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(154,55): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(158,56): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(162,55): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(166,56): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(222,28): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(300,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(304,42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(309,42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3\CIS-479-P3.cpp(314,42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   CIS-479-P3.vcxproj -> C:\Users\jason.bean\Documents\Fall_2021\AI\CIS-479-P3\CIS-479-P3\CIS-479-P3\x64\Debug\CIS-479-P3.exe
